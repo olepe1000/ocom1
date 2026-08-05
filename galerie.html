@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="style.css">
+  <title>Galerie - OLEPE</title>
+  <style>
+    .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;padding:16px}
+    .gallery img{width:100%;height:180px;object-fit:cover;border-radius:6px}
+  </style>
+</head>
+<body>
+<nav class="active">
+  <a href="index.html" class="logo">E-<span>OLEPE</span></a>
+  <ul class="navigation">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="produits.html">Produits</a></li>
+    <li class="has-dropdown">
+      <a href="#" class="dropdown-toggle">Services ▾</a>
+      <ul class="dropdown">
+        <li><a href="electromenagers.html">Electroménagers</a></li>
+        <li><a href="telephones-ordinateurs.html">Téléphones & Ordinateurs</a></li>
+        <li><a href="boutique.html">Boutique</a></li>
+        <li><a href="immobilier.html">Immobilier</a></li>
+        <li><a href="imprimerie.html">Imprimerie</a></li>
+        <li><a href="ebenisterie.html">Ébénisterie</a></li>
+        <li><a href="vehicules.html">Véhicules</a></li>
+        <li><a href="transport.html">Transport</a></li>
+        <li><a href="ouvrier.html">Ouvrier</a></li>
+        <li><a href="divers-services.html">Divers Services</a></li>
+      </ul>
+    </li>
+    <li><a href="about.html">A propos</a></li>
+    <li><a href="galerie.html" class="active">Galerie</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+<main>
+  <h1 style="padding:16px">Galerie</h1>
+  <div id="gallery" class="gallery" aria-live="polite"></div>
+</main>
+<script>
+  const images = [
+"121-Mixeur-STPE-871-Smart-Technology-500-ml-Mélangeur-3en1-300-watts-ST00158.jpg",
+"32 pouces-smat- STT-5032SA.jpg",
+"43 pouces -non smart STT-4300K.jfif",
+"Audio Multimedia STHB-9917M.jfif",
+"Barre de son.webp",
+"Blender Multifoncion 1.5L STPE-1220.jpg",
+"Blender Multifonction 1.5L STPE-1020GR.jfif",
+"Blender Multifonctions 1.5L SMART.STPE-1000.jpeg",
+"Blender Multifonctions 1.5L SMART.STPE-1020B.jpeg",
+"Blender Multifonctions 1.5L SMART.STPE-1020G.jpeg",
+"Blender Multifonctions 1.5L SMART.STPE-1020W.jpeg",
+"Blender Multifonctions 1.5L SMART.STPE-1110.jpeg",
+"Blender Multifonctions 1.5L SMART.STPE-1220.jpeg",
+"Blender Multifonctions 1.5L SMART.STPE-8779D.jpeg",
+"Bouilloire Electrique 1.8L, STPE-249R.jfif",
+"Bouilloire Electrique 1.8L,STPE-249G.jfif",
+"Bouilloire Electrique 1.8L,STPE-249S.jfif",
+"BOUILLOIRE SMART TECHNOLOGY ELECTRICS 1.8L ROUGE STPE- 249R – Génér.jpg",
+"bouilloire-electrique-smart-technologie-stpe-249g-18-litres-jaune-orargent.jpg",
+"chaudiere-100L- STCE-100L.png",
+"chaudiere-50L-STCE-50L.png",
+"chauffe-eau80L-STCE-80L.webp",
+"climatiseur- SKS-24 ATLAS.webp",
+"ClimatiseurSTS-18 2CV.jpeg",
+"ClimatiseurSTS-18 2CV.jpeg2.jpeg",
+"ClimatiseurSTS-24 power 3CV.jpeg",
+"congelateur 102L STCC-102.jpeg",
+"congelateur 105L STCC-177H.jpeg",
+"congelateur 141L STCC-255H.jpeg",
+"congelateur 142L STCC-215M.jpeg",
+"congelateur 159L STCC-230.jpeg",
+"congelateur 171L STCC-200.jpeg",
+"congelateur 220L STCC-275.jpeg",
+"congelateur 264L STCC-320.jpeg",
+"congelateur 264L STCC-320V.jpeg",
+"congelateur 280L STCC-327B.jpeg",
+"congelateur 286L STCC-385.jpeg",
+"congelateur 327L STCC-385V.jpeg",
+"congelateur 327L STCC-387B.jpeg",
+"congelateur 500L STCC-550.jpeg",
+"congelateur 500L STCC-550V.jpeg",
+"fer a repasser STPFR-8937D.jfif",
+"FONTAINE-SMART-TECHNOLOGY-STF-1217.png",
+"FONTAINE-SMART-TECHNOLOGY-STF-1218.png",
+"Home Cinema  STHA-1007M.webp",
+"Home Cinema  STHC-1000.jfif",
+"Home Cinema STH-288.jfif",
+"IPH 17 PRO MAX ESIM 2 TERA.webp",
+"ITEL A200 64+4GB.webp",
+"mini-chaine-STHP-1010E.png",
+"Mixeur Blender 1.5L SMART.jpeg",
+"Mixeur Plongeant  STPE-1508D.jfif",
+"Mixeur Plongeant , STPE-1511D.jfif",
+"mixeur plongeant STPE-871.jpeg",
+"Mixeur Plongeant, STPE-1502D.jfif",
+"Mixeur STPE-871.jfif",
+"mixeur-blender-smart-technologie-stpe-1020gr-15-litre-vert.jpg",
+"NOKIA HMD   128+6G.webp",
+"REDMI NOTE 13 PRO+ 512+12GB.webp",
+"Refrigerateur combine 3 tirroirs-STCB 305M.jpeg",
+"SAMSUNG A57 128+8GB.webp",
+"SMART TECHNOLOGY Bouilloire Electrique 1.8 Litres - 1500W - STPE-249S ....jpg",
+"SMART TECHNOLOGY STPE-1502D Mixeur Electrique Plongeant – 250 W -.jpg",
+"smart-technology-mixeur-plongeant-electrique-1000w-6pcsctn-stpe-1511d-2534.jpg",
+"smart-technology-mixeur-plongeant-electrique-avec-bol-4-en-1-hachoir-a-legumes-et-a-viande-fouet-centre-commercial-cuisine-7154-1024x912.jpg",
+"STCE-100L,Chauffe Eau Electrique 100L.webp",
+"STCE-50L ,Chauffe Eau Electrique 50L.webp",
+"STCE-80L ,Chauffe Eau Electrique 80L.webp",
+"STF-2026,Fer a repasser Vapeur.webp",
+"STF-2068,Fer a Repasser Vapeur.webp",
+"STH-333,Systeme Audio avec Haut Parleur Multimedia.webp",
+"STH-7818 ,Systeme Audio avec Haut Parleur Multimedia.webp",
+"STH-807,Systeme Audio avec Haut Parleur Multimedia.webp",
+"STHA-1160M,Home Cinema.webp",
+"STHB-3818,Systeme Audio avec Haut Parleur Multimedia.webp",
+"STHB-7979,Systeme Audio avec Haut Parleur Multimedia.webp",
+"STHB-9988M.webp",
+"STHB-9999,Systeme Audio avec Haut Parleur Multimedia.webp",
+"STHP-1010E,Hautte Paleur.webp",
+"STHP-1010E,Mini Chaine.webp",
+"STHP-1212M,Systeme Audio avec Haut Parleur Multimedia.webp",
+"STHP-2008E,Systeme Audio Blutooth.webp",
+"STHP-8088M,Systeme Audio Blutouth.webp",
+"STML 7SH ,Machine a Laver 7kg.webp",
+"STML 7SH ,Machine a Laver automatique 7kg.webp",
+"STML 9SH,Machine a Laver 9kg.webp",
+"STML-10M, Machine à Laver automatique 10kg,.jfif",
+"STML-10M,Machine a Laver Automatique 10kg.jfif",
+"STML-8SH,Machine a Laver 8kg.webp",
+"STMLS-10H ,Machine a Laver Double Bac 10kg.jfif",
+"STMLS-7H, Machine a Laver Double Bac..jfif",
+"STMLS-8F,Machine a Laver Semi-Automatique 8kg..jfif",
+"STMLS-8H,Machine a Laver Double Bac 8kg.jfif",
+"STMLS-9F,Machine a Laver Semi-Automatique 9kg.jfif",
+"STPE-1202C,Machine a Cafe 0,24L.webp",
+"STPE-1707C,Machine a Cafe 0,6L.webp",
+"STPE-7541D,Machine a Cafe Moulu 0,125L.webp",
+"STPE-787C,Machine a Cafe 0,24L.webp",
+"STPE-7894D,Machine a Cafe.webp",
+"STPE-7985D,Machine a Cafe.webp",
+"STPE-8579D,Machine a Cafe Moulu 0,3L.webp",
+"STPE-9587D Machine a Capsule.webp",
+"STPE-9999D,Appareil de Cuisine Batteuse Electrique.webp",
+"STPFR-3000,Fer a Repasser Vapeur.webp",
+"STV-1653WC,Ventillateur Mural 16 Pouces.webp",
+"STV-1654WRCC,Venillateur Mural 16 Pouces Telecommande.webp",
+"STV-1840C,Ventillateur sur Pied 18 Poucs.webp",
+"STV-1852C  ,Ventillateur sur pied 18 Pouces.webp",
+"STV-1854C,Ventillateur sur Pied 18 Pouces.webp",
+"STV-1856C,Ventillateur sur Pied 18 Pouces.webp",
+"STV-1877C,Ventillateur sur pied 18 pouces.webp",
+"STV-1890C,Ventillateur sur Pied 18 Pouces.webp",
+"STV-2001C ,Ventillateur Sur Pied Industriel 20 Pouces.webp",
+"STV-2601C,Ventillateur sur Pied Industriel 26 Pouces.webp",
+"STV-3001C,Venillateur sur Pied Indusriel 30 Pouces.webp",
+"STV-630,Ventillateur sur Pied 16 Pouces Rechargeable.webp",
+"Systeme Audio avec Haut Parleur, STHB-9888M.jfif",
+"Systeme Audio,STHD-750M.webp",
+"systeme-audio-avec-haut-parleur-multimedia-  STHB-9988M.jfif",
+"systeme-audio-avec-haut-parleur-multimedia- STHB-9898M.jfif",
+"systeme-audio-avec-haut-parleur-multimedia-smart.jfif",
+"TECNO SPARK 50 PRO 128+8GB.webp",
+"TV 65pouces-SMART-STT-6597K.webp",
+"Ventilateur- STV-3001C.webp"
+  ];
+   const gallery = document.getElementById('gallery');
+   images.forEach(name=>{
+     const img = document.createElement('img');
+     img.src = 'photos/' + encodeURIComponent(name);
+     img.alt = name;
+     gallery.appendChild(img);
+   });
+</script>
+<script src="app.js"></script>
+</body>
+</html>

@@ -56,6 +56,20 @@ if (burgerMenu) {
     });
 }
 
+// Dropdown toggles for .has-dropdown on small screens
+const dropdownParents = Array.from(document.querySelectorAll('.has-dropdown'));
+dropdownParents.forEach(parent => {
+    const toggle = parent.querySelector('.dropdown-toggle');
+    if (!toggle) return;
+    toggle.addEventListener('click', (e) => {
+        // on small screens, toggle the nested menu
+        if (window.innerWidth <= 900) {
+            e.preventDefault();
+            parent.classList.toggle('active');
+        }
+    });
+});
+
 if (navList) {
     navList.addEventListener('click', (e) => e.stopPropagation());
 }
