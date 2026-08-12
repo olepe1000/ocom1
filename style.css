@@ -692,20 +692,28 @@ h3{
         padding-top: 110px;
         grid-template-columns: 1fr;
         text-align: center;
+        row-gap: 2rem;
     }
 
     .home-content{
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 1rem;
     }
 
     .home-video{
+        width: 100%;
+        max-width: 720px;
+        margin: 0 auto;
         aspect-ratio: 4/3;
     }
 
     .home-video .adaptive-video{
+        width: 100%;
+        height: 100%;
         object-position: center top;
+        border-radius: 1rem;
     }
 
     .promo-strip {
