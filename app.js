@@ -168,7 +168,23 @@ if (searchInput) {
 const cartItemsList = document.querySelector('.cart-items');
 const cartTotalValue = document.querySelector('.cart-total-value');
 const cartEmpty = document.querySelector('.cart-empty');
-const cartData = [];
+const CART_STORAGE_KEY = 'olepe-cart';
+const cartData = (() => {
+    try {
+        const savedCart = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '[]');
+        return Array.isArray(savedCart) ? savedCart.filter((item) => item && item.id && item.name) : [];
+    } catch {
+        return [];
+    }
+})();
+
+const saveCart = () => {
+    try {
+        localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartData));
+    } catch {
+        // Keep the current page usable when browser storage is unavailable.
+    }
+};
 
 const parsePrice = (value) => {
     if (!value) return 0;
@@ -192,6 +208,8 @@ const getProductInfo = (element) => {
 };
 
 const renderCart = () => {
+    if (!cartItemsList || !cartTotalValue || !cartEmpty) return;
+
     cartItemsList.innerHTML = '';
 
     if (!cartData.length) {
@@ -205,15 +223,22 @@ const renderCart = () => {
     cartData.forEach((item) => {
         const cartCard = document.createElement('div');
         cartCard.className = 'cart-card';
-        cartCard.innerHTML = `
-            <img src="${item.image}" alt="${item.name}">
-            <div class="cart-text">
-                <h3>${item.name}</h3>
-                <span>${formatPrice(item.price)} FCFA</span>
-                <span>${item.quantity}x</span>
-            </div>
-            <i class="bx bx-trash" data-id="${item.id}"></i>
-        `;
+        const image = document.createElement('img');
+        image.src = item.image || '';
+        image.alt = item.name;
+        const text = document.createElement('div');
+        text.className = 'cart-text';
+        const name = document.createElement('h3');
+        name.textContent = item.name;
+        const price = document.createElement('span');
+        price.textContent = `${formatPrice(item.price)} FCFA`;
+        const quantity = document.createElement('span');
+        quantity.textContent = `${item.quantity}x`;
+        const removeButton = document.createElement('i');
+        removeButton.className = 'bx bx-trash';
+        removeButton.dataset.id = item.id;
+        text.append(name, price, quantity);
+        cartCard.append(image, text, removeButton);
         cartItemsList.appendChild(cartCard);
     });
 
@@ -231,6 +256,7 @@ const addCartItem = (product) => {
         cartData.push({ ...product, id, quantity: 1 });
     }
 
+    saveCart();
     renderCart();
 };
 
@@ -238,6 +264,7 @@ const removeCartItem = (id) => {
     const index = cartData.findIndex((item) => item.id === id);
     if (index !== -1) {
         cartData.splice(index, 1);
+        saveCart();
         renderCart();
     }
 };
@@ -264,13 +291,53 @@ newsCartButtons.forEach((button) => {
     });
 });
 
-cartItemsList.addEventListener('click', (e) => {
-    if (e.target.matches('.bx-trash')) {
-        removeCartItem(e.target.dataset.id);
-    }
-});
+if (cartItemsList) {
+    cartItemsList.addEventListener('click', (e) => {
+        if (e.target.matches('.bx-trash')) {
+            removeCartItem(e.target.dataset.id);
+        }
+    });
+}
 
 renderCart();
+
+const contactForm = document.querySelector('.contact-form');
+if (contactForm) {
+    const orderField = contactForm.elements.namedItem('product');
+    const quantityField = contactForm.elements.namedItem('quantity');
+    const total = cartData.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const itemCount = cartData.reduce((sum, item) => sum + item.quantity, 0);
+
+    if (cartData.length && orderField) {
+        orderField.value = `${cartData.map((item) => `${item.name} x ${item.quantity} - ${formatPrice(item.price * item.quantity)} FCFA`).join('\n')}\nTotal: ${formatPrice(total)} FCFA`;
+    }
+    if (cartData.length && quantityField) {
+        quantityField.value = itemCount;
+    }
+
+    contactForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const formData = new FormData(contactForm);
+        const orderDetails = [
+            'Bonjour OLEPE, je souhaite passer une commande :',
+            `Nom : ${formData.get('name')}`,
+            `E-mail : ${formData.get('email')}`,
+            `Téléphone : ${formData.get('phone')}`,
+            `Commande : ${formData.get('product')}`,
+            `Quantité totale : ${formData.get('quantity')}`,
+            `Date souhaitée : ${formData.get('delivery_date') || 'Non précisée'}`,
+            `Adresse de livraison : ${formData.get('address') || 'Non précisée'}`,
+            `Commentaires : ${formData.get('message') || 'Aucun'}`
+        ].join('\n');
+        const subject = `Commande OLEPE - ${formData.get('name')}`;
+
+        if (event.submitter?.value === 'email') {
+            window.location.href = `mailto:olepe1000@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(orderDetails)}`;
+        } else {
+            window.open(`https://wa.me/221762485350?text=${encodeURIComponent(orderDetails)}`, '_blank', 'noopener');
+        }
+    });
+}
 
       var swiper = new Swiper('.news-cont', {
         spaceBetween: 20,
