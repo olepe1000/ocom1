@@ -302,6 +302,12 @@ nav.active{
     box-shadow: var(--box-shadow);
     transition: .2s ease-in-out;
 }
+.cart-items{
+    max-height: min(55vh, 420px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+}
 .cart-card{
     display: flex;
     align-items: center;
